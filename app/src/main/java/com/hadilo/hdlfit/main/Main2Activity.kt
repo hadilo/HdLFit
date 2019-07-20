@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
@@ -13,6 +14,7 @@ import com.hadilo.hdlfit.inputData.InputDataActivity
 import com.hadilo.hdlfit.model.DataModel
 
 import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.content_main2.*
 
 class Main2Activity : AppCompatActivity() {
 
@@ -20,10 +22,18 @@ class Main2Activity : AppCompatActivity() {
 
     val INSERT_REQUEST = 1
 
+    lateinit var adapter: Main2Adapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
+
+        setLayout()
+    }
+
+    fun setLayout() {
+        setRecyclerView()
 
         fab_movement_name.setOnClickListener {
             popup()
@@ -35,6 +45,24 @@ class Main2Activity : AppCompatActivity() {
         }
     }
 
+    private fun setRecyclerView(){
+        adapter = Main2Adapter(baseContext) {
+
+        }
+        //recyclerview dengan layout listview
+        val linearLayoutManager = LinearLayoutManager(baseContext)
+        rv_data.layoutManager = linearLayoutManager
+
+        //mengaktifkan smooth scroll
+        linearLayoutManager.isSmoothScrollbarEnabled = true
+        //agar tidak auto scroll ke recyclerview bila diatas recyclerview terdapat layout lain
+        rv_data.isFocusable = false
+
+        rv_data.adapter = adapter
+
+        adapter.setItems(initData())
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
 
@@ -44,6 +72,7 @@ class Main2Activity : AppCompatActivity() {
                 val model = intent?.getParcelableExtra<DataModel>("DATA_MODEL")
                 Log.d(TAG, "onActivityResult: $model")
 
+                adapter.setItems(mutableListOf(model!!))
             }
         }
     }
@@ -74,4 +103,11 @@ class Main2Activity : AppCompatActivity() {
         return true
     }
 
+    fun initData(): MutableList<DataModel> {
+        var dataModel = mutableListOf<DataModel>()
+        dataModel.add(DataModel("Bench Press", 4, 8))
+        dataModel.add(DataModel("Push up", 4, 8))
+        dataModel.add(DataModel("Butterfly", 4, 8))
+        return dataModel
+    }
 }
