@@ -6,3 +6,4 @@ This Application help me to set and see my progress workout
 Use
 - Kotlin
 - Model-View-Presenter Pattern
+- SpinnerTextInputLayout https://github.com/hadilo/SpinnerTextInputLayout/
