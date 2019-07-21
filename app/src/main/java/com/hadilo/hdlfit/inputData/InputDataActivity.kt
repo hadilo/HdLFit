@@ -7,6 +7,9 @@ import android.util.Log
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.DataModel
 import kotlinx.android.synthetic.main.activity_input_data.*
+import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
+
+
 
 class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
@@ -35,11 +38,13 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     fun setLayout() {
+        setSpinner()
+
         btn_save.setOnClickListener {
-            if (validate(til_movement_name.editText?.text.toString(), til_set.editText?.text.toString(), til_repetition.editText?.text.toString())) {
+            if (validate(cmb_movement_name.editText?.text.toString(), til_set.editText?.text.toString(), til_repetition.editText?.text.toString())) {
 
                 val dataModel = DataModel(
-                    til_movement_name.editText?.text.toString(),
+                    cmb_movement_name.editText?.text.toString(),
                     til_set.editText?.text.toString().toInt(),
                     til_repetition.editText?.text.toString().toInt()
                 )
@@ -50,6 +55,24 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
                 finish()
             }
         }
+    }
+
+    fun setSpinner() {
+        cmb_movement_name.setMode(SpinnerTextInputLayout.MODE_POPUP)
+        cmb_movement_name.setItems(initSpinner().toList())
+        cmb_movement_name.setOnItemSelectedListener { item, selectedIndex ->
+            cmb_movement_name.editText?.setText(item.label)
+            cmb_movement_name.isErrorEnabled = false
+            cmb_movement_name.error = ""
+        }
+    }
+
+    fun initSpinner(): MutableList<SpinnerTextInputLayout.ItemModel> {
+        return mutableListOf(
+            SpinnerTextInputLayout.ItemModel("Bench Press"),
+            SpinnerTextInputLayout.ItemModel("Incline"),
+            SpinnerTextInputLayout.ItemModel("Butterfly")
+        )
     }
 
     fun validate(movementName: String?, set: String?, repetition: String?): Boolean {
