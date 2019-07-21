@@ -16,7 +16,9 @@ import com.hadilo.hdlfit.model.DataModel
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*
 
-class Main2Activity : AppCompatActivity() {
+class Main2Activity : AppCompatActivity(), Main2Contract.View {
+
+    var presenter: Main2Contract.Presenter? = null
 
     val TAG = "Main2Activity"
 
@@ -29,7 +31,20 @@ class Main2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
 
+        setPresenter()
         setLayout()
+
+        presenter?.getDatas()
+    }
+
+    fun setPresenter() {
+        presenter = Main2Presenter()
+        presenter?.takeView(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.dropView()
     }
 
     fun setLayout() {
@@ -59,8 +74,6 @@ class Main2Activity : AppCompatActivity() {
         rv_data.isFocusable = false
 
         rv_data.adapter = adapter
-
-        adapter.setItems(initData())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
@@ -103,11 +116,29 @@ class Main2Activity : AppCompatActivity() {
         return true
     }
 
-    fun initData(): MutableList<DataModel> {
-        var dataModel = mutableListOf<DataModel>()
-        dataModel.add(DataModel("Bench Press", 4, 8))
-        dataModel.add(DataModel("Push up", 4, 8))
-        dataModel.add(DataModel("Butterfly", 4, 8))
-        return dataModel
+
+
+    override fun showDialog(message: String) {
+
+    }
+
+    override fun onSuccessGetDatas(dataModels: MutableList<DataModel>) {
+        adapter.setItems(dataModels)
+    }
+
+    override fun onFailedGetDatas(message: String) {
+
+    }
+
+    override fun showProgress() {
+
+    }
+
+    override fun hideProgress() {
+
+    }
+
+    override fun goToMaintenance() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
