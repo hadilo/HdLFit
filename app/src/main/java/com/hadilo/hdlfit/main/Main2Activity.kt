@@ -88,10 +88,10 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         if (requestCode == INSERT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                val model = intent?.getParcelableExtra<Movement>("DATA_MODEL")
+                val model = intent?.getParcelableExtra<Movement>("MODEL")
                 Log.d(TAG, "onActivityResult: $model")
 //
-                adapter.setItems(mutableListOf(model!!))
+                adapter.setItem(model!!)
             }
         }
     }

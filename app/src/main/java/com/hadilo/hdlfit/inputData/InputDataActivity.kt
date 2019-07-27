@@ -18,7 +18,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
     var presenter: InputDataContract.Presenter? = null
 
-    private var movement: MutableList<Movement>? = null
+    private var movement = mutableListOf<Movement>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +46,19 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         setSpinner()
 
         btn_save.setOnClickListener {
-            if (validate(cmb_movement_name.editText?.text.toString(), til_set.editText?.text.toString(), til_repetition.editText?.text.toString())) {
+            if (validate(cmb_movement_name.editText?.text.toString(), til_set.editText?.text.toString(), til_repetition.editText?.text.toString(), til_load.editText?.text.toString())) {
 
-                val dataModel = DataModel(
-                    cmb_movement_name.editText?.text.toString(),
+                val m = movement.find {
+                    it.name == cmb_movement_name.editText?.text.toString()
+                }
+
+                presenter?.addProperty(
+                    m,
                     til_set.editText?.text.toString().toInt(),
-                    til_repetition.editText?.text.toString().toInt()
+                    til_repetition.editText?.text.toString().toInt(),
+                    til_load.editText?.text.toString().toInt()
                 )
 
-                val intent = Intent()
-                intent.putExtra("DATA_MODEL", dataModel)
-                setResult(RESULT_OK, intent)
-                finish()
             }
         }
     }
@@ -76,7 +77,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         }
     }
 
-    fun validate(movementName: String?, set: String?, repetition: String?): Boolean {
+    fun validate(movementName: String?, set: String?, repetition: String?, load: String?): Boolean {
         if (movementName.isNullOrEmpty()) {
             showDialog("Nama Gerakan harus diisi")
             return false
@@ -91,10 +92,34 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         }
 
         if (repetition.isNullOrEmpty()) {
+            showDialog("Repetisi harus diisi")
+            return false
+        }
+        if (repetition == "0") {
             showDialog("Repetisi tidak boleh 0")
             return false
         }
+
+        if (load.isNullOrEmpty()) {
+            showDialog("Beban harus diisi")
+            return false
+        }
+        if (load == "0") {
+            showDialog("Beban tidak boleh 0")
+            return false
+        }
         return true
+    }
+
+    override fun onSuccessAddProperty(movement: Movement?) {
+        val intent = Intent()
+        intent.putExtra("MODEL", movement)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    override fun onFailedAddProperty(message: String?) {
+
     }
 
     override fun showDialog(message: String?) {
@@ -102,11 +127,11 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     override fun showProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun hideProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun goToMaintenance() {

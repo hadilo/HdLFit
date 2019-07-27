@@ -42,8 +42,20 @@ class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : Re
     }
 
     fun setItems(items: MutableList<Movement>) {
-        this.items = items
+        this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    fun setItem(items: Movement) {
+        this.items.add(items)
+        sorting()
+        notifyDataSetChanged()
+    }
+
+    fun sorting() {
+        this.items.sortBy {
+            it.name
+        }
     }
 
     fun getItems(): MutableList<Movement> {
