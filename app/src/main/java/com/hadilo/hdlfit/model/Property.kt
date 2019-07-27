@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-//@Parcelize
+@Parcelize
 data class Property(
 
 	@field:SerializedName("set")
@@ -31,4 +31,4 @@ data class Property(
 
 	@field:SerializedName("objectId")
 	var objectId: String? = null
-)//: Parcelable
+): Parcelable

@@ -45,4 +45,8 @@ class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : Re
         this.items = items
         notifyDataSetChanged()
     }
+
+    fun getItems(): MutableList<Movement> {
+        return items
+    }
 }

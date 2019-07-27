@@ -2,6 +2,7 @@ package com.hadilo.hdlfit.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -18,6 +19,7 @@ import com.hadilo.hdlfit.model.Movement
 
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*
+import java.util.ArrayList
 
 class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
@@ -59,6 +61,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
         fab_progress.setOnClickListener {
             val intent = Intent(this, InputDataActivity::class.java)
+            intent.putParcelableArrayListExtra("MODEL", adapter.getItems() as ArrayList)
             startActivityForResult(intent, INSERT_REQUEST)
         }
     }
@@ -85,10 +88,10 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         if (requestCode == INSERT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-//                val model = intent?.getParcelableExtra<Movement>("DATA_MODEL")
-//                Log.d(TAG, "onActivityResult: $model")
+                val model = intent?.getParcelableExtra<Movement>("DATA_MODEL")
+                Log.d(TAG, "onActivityResult: $model")
 //
-//                adapter.setItems(mutableListOf(model!!))
+                adapter.setItems(mutableListOf(model!!))
             }
         }
     }

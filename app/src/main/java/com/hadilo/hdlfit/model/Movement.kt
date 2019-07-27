@@ -3,9 +3,10 @@ package com.hadilo.hdlfit.model
 import com.google.gson.annotations.SerializedName
 
 import android.os.Parcelable
+import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
 import kotlinx.android.parcel.Parcelize
 
-//@Parcelize
+@Parcelize
 data class Movement(
 
 	@field:SerializedName("created")
@@ -28,4 +29,9 @@ data class Movement(
 
 	@field:SerializedName("objectId")
 	var objectId: String? = null
-)//: Parcelable
+): Parcelable, SpinnerTextInputLayout.Listable {
+
+	override fun getLabel(): String? {
+		return name
+	}
+}

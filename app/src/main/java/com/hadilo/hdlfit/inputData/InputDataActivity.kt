@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.DataModel
+import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_input_data.*
 import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
 
@@ -17,10 +18,14 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
     var presenter: InputDataContract.Presenter? = null
 
+    private var movement: MutableList<Movement>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_data)
         title = "Data"
+
+        movement = intent.getParcelableArrayListExtra("MODEL")
 
         setPresenter()
 
@@ -58,21 +63,17 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     fun setSpinner() {
+
+        //remove duplicate strings from array https://stackoverflow.com/a/40430451
+        val m = movement?.distinctBy { it.name }
+
         cmb_movement_name.setMode(SpinnerTextInputLayout.MODE_POPUP)
-        cmb_movement_name.setItems(initSpinner().toList())
+        cmb_movement_name.setItems(m)
         cmb_movement_name.setOnItemSelectedListener { item, selectedIndex ->
             cmb_movement_name.editText?.setText(item.label)
             cmb_movement_name.isErrorEnabled = false
             cmb_movement_name.error = ""
         }
-    }
-
-    fun initSpinner(): MutableList<SpinnerTextInputLayout.ItemModel> {
-        return mutableListOf(
-            SpinnerTextInputLayout.ItemModel("Bench Press"),
-            SpinnerTextInputLayout.ItemModel("Incline"),
-            SpinnerTextInputLayout.ItemModel("Butterfly")
-        )
     }
 
     fun validate(movementName: String?, set: String?, repetition: String?): Boolean {
