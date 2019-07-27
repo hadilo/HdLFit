@@ -9,14 +9,15 @@ import android.widget.TextView
 
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.DataModel
+import com.hadilo.hdlfit.model.Movement
 
 /**
  * Created by Hadilo Muhammad on 2019-07-20.
  */
 
-class Main2Adapter(val context: Context, val listener: (DataModel?) -> Unit) : RecyclerView.Adapter<Main2Adapter.ViewHolder>() {
+class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : RecyclerView.Adapter<Main2Adapter.ViewHolder>() {
 
-    private var items = mutableListOf<DataModel>()
+    private var items = mutableListOf<Movement>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_main2, parent, false))
@@ -30,15 +31,18 @@ class Main2Adapter(val context: Context, val listener: (DataModel?) -> Unit) : R
         val lblMovementName = view.findViewById<TextView>(R.id.lbl_movement_name)
         val lblSetValue = view.findViewById<TextView>(R.id.lbl_set_value)
         val lblRepetitionValue = view.findViewById<TextView>(R.id.lbl_repetition_value)
+        val lblLoadValue = view.findViewById<TextView>(R.id.lbl_load_value)
 
-        fun bindItem(items: DataModel) {
-            lblMovementName.text = items.movementName
-            lblSetValue.text = items.set.toString()
-            lblRepetitionValue.text = items.repetition.toString()
+        fun bindItem(items: Movement) {
+            lblMovementName.text = items.name
+            lblSetValue.text = items.property?.get(0)?.set.toString()
+            lblRepetitionValue.text = items.property?.get(0)?.repetition.toString()
+            lblLoadValue.text = items.property?.get(0)?.load.toString()
         }
     }
 
-    fun setItems(items: MutableList<DataModel>) {
+    fun setItems(items: MutableList<Movement>) {
         this.items = items
+        notifyDataSetChanged()
     }
 }

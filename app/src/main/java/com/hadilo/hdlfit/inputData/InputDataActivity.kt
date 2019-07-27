@@ -96,7 +96,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         return true
     }
 
-    override fun showDialog(message: String) {
+    override fun showDialog(message: String?) {
         Log.d(TAG, "showDialog: $message")
     }
 

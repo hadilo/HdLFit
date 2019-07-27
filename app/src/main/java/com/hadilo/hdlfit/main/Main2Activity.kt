@@ -9,9 +9,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import com.backendless.BackendlessUser
+//import com.backendless.BackendlessUser
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.inputData.InputDataActivity
 import com.hadilo.hdlfit.model.DataModel
+import com.hadilo.hdlfit.model.Movement
 
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*
@@ -33,8 +36,8 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
         setPresenter()
         setLayout()
+        presenter?.login("devhadi@gmail.com","123456")
 
-        presenter?.getDatas()
     }
 
     fun setPresenter() {
@@ -82,10 +85,10 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         if (requestCode == INSERT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                val model = intent?.getParcelableExtra<DataModel>("DATA_MODEL")
-                Log.d(TAG, "onActivityResult: $model")
-
-                adapter.setItems(mutableListOf(model!!))
+//                val model = intent?.getParcelableExtra<Movement>("DATA_MODEL")
+//                Log.d(TAG, "onActivityResult: $model")
+//
+//                adapter.setItems(mutableListOf(model!!))
             }
         }
     }
@@ -118,15 +121,25 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
 
 
-    override fun showDialog(message: String) {
+    override fun showDialog(message: String?) {
 
     }
 
-    override fun onSuccessGetDatas(dataModels: MutableList<DataModel>) {
-        adapter.setItems(dataModels)
+    override fun onSuccessLogin(user: BackendlessUser?) {
+        presenter?.getDatas()
     }
 
-    override fun onFailedGetDatas(message: String) {
+    override fun onFailedLogin(message: String?) {
+        Log.d(TAG, "onFailedLogin: $message")
+    }
+
+    override fun onSuccessGetDatas(movements: MutableList<Movement>?) {
+        Log.d(TAG, "onSuccessGetDatas: $movements")
+        
+        adapter.setItems(movements!!)
+    }
+
+    override fun onFailedGetDatas(message: String?) {
 
     }
 
