@@ -29,9 +29,8 @@ data class Movement(
 
 	@field:SerializedName("objectId")
 	var objectId: String? = null
-): Parcelable, SpinnerTextInputLayout.Listable {
-
-	override fun getLabel(): String? {
-		return name
+): Parcelable {
+	override fun toString(): String {
+		return name!!
 	}
 }

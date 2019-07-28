@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import com.hadilo.hdlfit.model.Movement;
 
 import java.util.List;
 
@@ -18,17 +20,15 @@ import java.util.List;
  * Created by hadilo on 9/28/17.
  */
 
-public class SpinnerTextInputLayout extends TextInputLayout {
+public class SpinnerTextInputLayout<T> extends TextInputLayout {
 
     private static final String TAG = "SpinnerClickToTextIn";
-
-    List<Listable> mItems;
-    String[] mListableItems;
 
     NDSpinner spinner;
     AlertDialog.Builder popup;
 
-    OnItemSelectedListener<Listable> onItemSelectedListener;
+    ArrayAdapter arrayAdapter;
+    OnItemSelectedListener<T> onItemSelectedListener;
 
     public SpinnerTextInputLayout(Context context) {
         super(context);
@@ -67,26 +67,11 @@ public class SpinnerTextInputLayout extends TextInputLayout {
 //        getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(getContext(), R.drawable.ic_arrow_drop_down_black_24dp), null);
     }
 
-    public void setItems(List<Listable> items) {
-        if(items != null) {
+    public void setItems(ArrayAdapter arrayAdapter) {
 
-            this.mItems = items;
-            this.mListableItems = new String[items.size()];
-
-            int i = 0;
-
-            for (Listable item : mItems) {
-                mListableItems[i++] = item.getLabel();
-            }
-
-        }
-        else {
-            this.mListableItems = new String[0];
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, mListableItems);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+        this.arrayAdapter = arrayAdapter; //new ArrayAdapter<T>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        this.arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(this.arrayAdapter);
 
         configureOnClickListener();
 
@@ -113,7 +98,7 @@ public class SpinnerTextInputLayout extends TextInputLayout {
                         break;
 
                     case MODE_POPUP:
-                        if(mListableItems.length != 0) popup.create().show();
+                        /*if(mListableItems.length != 0)*/ popup.create().show();
                         break;
                 }
             }
@@ -125,7 +110,7 @@ public class SpinnerTextInputLayout extends TextInputLayout {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (onItemSelectedListener != null && isValidate()) {
-                            onItemSelectedListener.onItemSelectedListener(mItems.get(i), i);
+                            onItemSelectedListener.onItemSelectedListener(arrayAdapter.getItem(i), i);
                             setValidate(false);
                         }
                     }
@@ -139,11 +124,11 @@ public class SpinnerTextInputLayout extends TextInputLayout {
                 });
                 break;
             case MODE_POPUP:
-                popup.setItems(mListableItems, new DialogInterface.OnClickListener() {
+                popup.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int selectedIndex) {
                         if (onItemSelectedListener != null) {
-                            onItemSelectedListener.onItemSelectedListener(mItems.get(selectedIndex), selectedIndex);
+                            onItemSelectedListener.onItemSelectedListener(arrayAdapter.getItem(selectedIndex), selectedIndex);
                         }
                     }
                 });
@@ -151,12 +136,12 @@ public class SpinnerTextInputLayout extends TextInputLayout {
         }
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedListener<Listable> onItemSelectedListener) {
+    public void setOnItemSelectedListener(OnItemSelectedListener<T> onItemSelectedListener) {
         this.onItemSelectedListener = onItemSelectedListener;
     }
 
-    public interface OnItemSelectedListener<Listable> {
-        void onItemSelectedListener(Listable item, int selectedIndex);
+    public interface OnItemSelectedListener<T> {
+        void onItemSelectedListener(Object item, int selectedIndex);
     }
 
     private boolean validate;
@@ -194,27 +179,4 @@ public class SpinnerTextInputLayout extends TextInputLayout {
         popup = new AlertDialog.Builder(getContext());
         popup.setPositiveButton("", null);
     }
-
-    public interface Listable {
-        String getLabel();
-    }
-
-    public static class ItemModel implements Listable {
-
-        private String label;
-
-        public ItemModel(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label){
-            this.label = label;
-        }
-    }
-
 }

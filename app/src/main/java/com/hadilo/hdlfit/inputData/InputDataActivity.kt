@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.hadilo.hdlfit.R
-import com.hadilo.hdlfit.model.DataModel
 import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_input_data.*
 import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
+import android.widget.ArrayAdapter
+
+
 
 
 
@@ -66,12 +68,14 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     fun setSpinner() {
 
         //remove duplicate strings from array https://stackoverflow.com/a/40430451
-        val m = movement?.distinctBy { it.name }
+        val m = movement.distinctBy { it.name }
 
         cmb_movement_name.setMode(SpinnerTextInputLayout.MODE_POPUP)
-        cmb_movement_name.setItems(m)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, m)
+        cmb_movement_name.setItems(adapter)
         cmb_movement_name.setOnItemSelectedListener { item, selectedIndex ->
-            cmb_movement_name.editText?.setText(item.label)
+            cmb_movement_name.editText?.setText((item as Movement).name)
             cmb_movement_name.isErrorEnabled = false
             cmb_movement_name.error = ""
         }
