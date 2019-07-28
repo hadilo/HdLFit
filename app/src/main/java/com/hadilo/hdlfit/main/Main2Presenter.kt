@@ -135,6 +135,29 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
         return queryBuilder
     }
 
+    override fun insertDataMovementName(name: String) {
+        view?.showProgress()
+
+        val movement = Movement(
+            name = name
+        )
+
+        Backendless.Data.of(Movement::class.java).save(movement, object : AsyncCallback<Movement> {
+
+            override fun handleResponse(response: Movement?) {
+
+                view?.hideProgress()
+                view?.onSuccessDataMovementName(response)
+
+            }
+
+            override fun handleFault(fault: BackendlessFault?) {
+                view?.hideProgress()
+                view?.onFailedDataMovementName(fault?.message)
+            }
+        })
+    }
+
     fun initData(): MutableList<DataModel> {
         var dataModel = mutableListOf<DataModel>()
         dataModel.add(DataModel("Bench Press", 4, 8))

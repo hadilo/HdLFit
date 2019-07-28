@@ -109,6 +109,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
         btnSave.setOnClickListener {
             if (validasiPopup(tilMovementName.editText?.text.toString())) {
+                presenter?.insertDataMovementName(tilMovementName.editText?.text.toString())
                 builder.dismiss()
             }
         }
@@ -137,12 +138,18 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     }
 
     override fun onSuccessGetDatas(movements: MutableList<Movement>?) {
-        Log.d(TAG, "onSuccessGetDatas: $movements")
-        
         adapter.setItems(movements!!)
     }
 
     override fun onFailedGetDatas(message: String?) {
+
+    }
+
+    override fun onSuccessDataMovementName(movements: Movement?) {
+
+    }
+
+    override fun onFailedDataMovementName(message: String?) {
 
     }
 

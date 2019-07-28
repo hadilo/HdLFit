@@ -18,10 +18,14 @@ class Main2Contract {
 
         fun onSuccessGetDatas(movements: MutableList<Movement>?)
         fun onFailedGetDatas(message: String?)
+
+        fun onSuccessDataMovementName(movements: Movement?)
+        fun onFailedDataMovementName(message: String?)
     }
 
     interface Presenter : BasePresenter<View> {
         fun login(username: String, password: String)
         fun getDatas()
+        fun insertDataMovementName(name: String)
     }
 }
