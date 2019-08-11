@@ -86,26 +86,30 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
                 } else {
                     view?.hideProgress()
 
-                    var filterMovement = mutableListOf<Movement>()
+//                    var filterMovement = mutableListOf<Movement>()
 
-                    response?.forEach {movement ->
+//                    response?.forEach {movement ->
+//                        if (movement.property?.isEmpty()!!) {
+//                            filterMovement.add(movement)
+//                        } else {
+//                            movement.property?.forEach {property ->
+//
+//                                val m = Movement()
+//                                m.created = movement.created
+//                                m.name = movement.name
+//                                m.___class = movement.___class
+//                                m.property = mutableListOf(property)
+//                                m.ownerId = movement.ownerId
+//                                m.updated = movement.updated
+//                                m.objectId = movement.objectId
+//
+//                                filterMovement.add(m)
+//                            }
+//                        }
+//
+//                    }
 
-                        movement.property?.forEach {property ->
-
-                            val m = Movement()
-                            m.created = movement.created
-                            m.name = movement.name
-                            m.___class = movement.___class
-                            m.property = mutableListOf(property)
-                            m.ownerId = movement.ownerId
-                            m.updated = movement.updated
-                            m.objectId = movement.objectId
-
-                            filterMovement.add(m)
-                        }
-                    }
-
-                    view?.onSuccessGetDatas(filterMovement)
+                    view?.onSuccessGetDatas(response)
                 }
             }
 
