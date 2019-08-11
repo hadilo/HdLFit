@@ -17,10 +17,12 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        title = "Detail"
+        movement = intent.getParcelableExtra("MODEL")
+
+        title = movement?.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        movement = intent.getParcelableExtra("MODEL")
+
 
         setPresenter()
         setRecyclerView()
