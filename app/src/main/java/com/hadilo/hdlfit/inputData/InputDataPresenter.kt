@@ -64,7 +64,7 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
                     m.created = movement?.created
                     m.name = movement?.name
                     m.___class = movement?.___class
-                    m.property = mutableListOf(property)
+                    m.property = mutableListOf(property!!)
                     m.ownerId = movement?.ownerId
                     m.updated = movement?.updated
                     m.objectId = movement?.objectId
