@@ -37,8 +37,8 @@ class DetailAdapter(val context: Context, val listener: (Property?) -> Unit) : R
         fun bindItem(item: Property) {
             lblMovementName.visibility = View.GONE
             lblSetValue.text = item.set.toString()
-            lblRepetitionValue.text = item.created.toString() //if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
-            lblLoadValue.text = item.updated.toString() //if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
+            lblRepetitionValue.text = if(item.repetition != null) item.repetition.toString() else "-"
+            lblLoadValue.text = if(item.load != null) item.load.toString() else "-"
         }
     }
 
