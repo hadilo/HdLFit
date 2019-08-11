@@ -19,7 +19,7 @@ data class Movement(
 	var ___class: String? = null,
 
 	@field:SerializedName("property")
-	var property: MutableList<Property?>? = null,
+	var property: MutableList<Property>? = null,
 
 	@field:SerializedName("ownerId")
 	var ownerId: String? = null,
