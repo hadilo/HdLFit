@@ -1,11 +1,13 @@
 package com.hadilo.hdlfit.detail
 
+import android.app.ProgressDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.utils.ProgressDialogHelper
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
@@ -13,6 +15,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     var presenter: DetailContract.Presenter? = null
 
     private var movement: Movement? = null
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +25,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         title = movement?.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        progressDialog = ProgressDialog(this)
 
         setPresenter()
         setRecyclerView()
@@ -56,11 +59,11 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     }
 
     override fun showProgress() {
-
+        ProgressDialogHelper.showProgress(progressDialog!!)
     }
 
     override fun hideProgress() {
-
+        ProgressDialogHelper.dismissProgress(progressDialog!!)
     }
 
     override fun goToMaintenance() {

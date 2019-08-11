@@ -1,5 +1,6 @@
 package com.hadilo.hdlfit.inputData
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_input_data.*
 import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
 import android.widget.ArrayAdapter
+import com.hadilo.hdlfit.utils.ProgressDialogHelper
 
 class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
@@ -18,6 +20,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     var presenter: InputDataContract.Presenter? = null
 
     private var movement = mutableListOf<Movement>()
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,8 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movement = intent.getParcelableArrayListExtra("MODEL")
+
+        progressDialog = ProgressDialog(this)
 
         setPresenter()
 
@@ -129,11 +134,11 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     override fun showProgress() {
-
+        ProgressDialogHelper.showProgress(progressDialog!!)
     }
 
     override fun hideProgress() {
-
+        ProgressDialogHelper.dismissProgress(progressDialog!!)
     }
 
     override fun goToMaintenance() {

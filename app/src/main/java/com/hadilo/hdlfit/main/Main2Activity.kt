@@ -1,5 +1,6 @@
 package com.hadilo.hdlfit.main
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
@@ -15,6 +16,7 @@ import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.detail.DetailActivity
 import com.hadilo.hdlfit.inputData.InputDataActivity
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.utils.ProgressDialogHelper
 
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*
@@ -29,11 +31,14 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     val INSERT_REQUEST = 1
 
     lateinit var adapter: Main2Adapter
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
+
+        progressDialog = ProgressDialog(this)
 
         setPresenter()
         setLayout()
@@ -159,11 +164,11 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     }
 
     override fun showProgress() {
-
+        ProgressDialogHelper.showProgress(progressDialog!!)
     }
 
     override fun hideProgress() {
-
+        ProgressDialogHelper.dismissProgress(progressDialog!!)
     }
 
     override fun goToMaintenance() {
