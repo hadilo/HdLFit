@@ -10,14 +10,15 @@ import android.widget.TextView
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.DataModel
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.model.Property
 
 /**
  * Created by Hadilo Muhammad on 2019-07-20.
  */
 
-class DetailAdapter(val context: Context, val listener: (Movement?) -> Unit) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+class DetailAdapter(val context: Context, val listener: (Property?) -> Unit) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 
-    private var items = mutableListOf<Movement>()
+    private var items = mutableListOf<Property>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_main2, parent, false))
@@ -33,33 +34,34 @@ class DetailAdapter(val context: Context, val listener: (Movement?) -> Unit) : R
         val lblRepetitionValue = view.findViewById<TextView>(R.id.lbl_repetition_value)
         val lblLoadValue = view.findViewById<TextView>(R.id.lbl_load_value)
 
-        fun bindItem(items: Movement) {
-            lblMovementName.text = items.name
-            lblSetValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.set.toString() else "-"
-            lblRepetitionValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.created.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
-            lblLoadValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.updated.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
-
+        fun bindItem(item: Property) {
+            lblMovementName.visibility = View.GONE
+            lblSetValue.text = item.set.toString()
+            lblRepetitionValue.text = item.created.toString() //if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
+            lblLoadValue.text = item.updated.toString() //if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
         }
     }
 
-    fun setItems(items: MutableList<Movement>) {
-        this.items.addAll(items)
+    fun setItems(items: MutableList<Property>?) {
+        if (items != null) {
+            this.items.addAll(items)
+        }
         notifyDataSetChanged()
     }
 
-    fun setItem(items: Movement) {
+    fun setItem(items: Property) {
         this.items.add(items)
-        sorting()
+//        sorting()
         notifyDataSetChanged()
     }
 
-    fun sorting() {
-        this.items.sortBy {
-            it.name
-        }
-    }
+//    fun sorting() {
+//        this.items.sortBy {
+//            it.name
+//        }
+//    }
 
-    fun getItems(): MutableList<Movement> {
+    fun getItems(): MutableList<Property> {
         return items
     }
 }

@@ -11,13 +11,13 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     var presenter: DetailContract.Presenter? = null
 
-    private var movement = mutableListOf<Movement>()
+    private var movement: Movement? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        movement = intent.getParcelableArrayListExtra("MODEL")
+        movement = intent.getParcelableExtra("MODEL")
 
         setPresenter()
         setRecyclerView()
@@ -42,7 +42,8 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
         rv_data.adapter = adapter
 
-        adapter.setItems(movement)
+        adapter.setItems(movement?.property)
+
     }
 
     override fun showDialog(message: String?) {

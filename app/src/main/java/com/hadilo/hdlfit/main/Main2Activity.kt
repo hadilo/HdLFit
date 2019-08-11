@@ -11,10 +11,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import com.backendless.BackendlessUser
-//import com.backendless.BackendlessUser
 import com.hadilo.hdlfit.R
+import com.hadilo.hdlfit.detail.DetailActivity
 import com.hadilo.hdlfit.inputData.InputDataActivity
-import com.hadilo.hdlfit.model.DataModel
 import com.hadilo.hdlfit.model.Movement
 
 import kotlinx.android.synthetic.main.activity_main2.*
@@ -72,7 +71,9 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
     private fun setRecyclerView(){
         adapter = Main2Adapter(baseContext) {
-
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("MODEL", it)
+            startActivity(intent)
         }
         //recyclerview dengan layout listview
         val linearLayoutManager = LinearLayoutManager(baseContext)

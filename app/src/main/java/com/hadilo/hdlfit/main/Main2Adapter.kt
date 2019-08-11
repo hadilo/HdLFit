@@ -22,7 +22,7 @@ class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_main2, parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindItem(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindItem(items[position], listener)
 
     override fun getItemCount(): Int = items.size
 
@@ -33,11 +33,15 @@ class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : Re
         val lblRepetitionValue = view.findViewById<TextView>(R.id.lbl_repetition_value)
         val lblLoadValue = view.findViewById<TextView>(R.id.lbl_load_value)
 
-        fun bindItem(items: Movement) {
+        fun bindItem(items: Movement, listener: (Movement?) -> Unit) {
             lblMovementName.text = items.name
-            lblSetValue.text = items.property?.get(0)?.set.toString()
-            lblRepetitionValue.text = items.property?.get(0)?.repetition.toString()
-            lblLoadValue.text = items.property?.get(0)?.load.toString()
+            lblSetValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.set.toString() else "-"
+            lblRepetitionValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.created.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
+            lblLoadValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.updated.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
+
+            itemView.setOnClickListener {
+                listener(items)
+            }
         }
     }
 
