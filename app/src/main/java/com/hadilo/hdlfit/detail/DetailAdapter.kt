@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.hadilo.hdlfit.R
-import com.hadilo.hdlfit.model.DataModel
-import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.model.Property
+import com.hadilo.hdlfit.utils.DateFormatHelper
 
 /**
  * Created by Hadilo Muhammad on 2019-07-20.
@@ -35,7 +34,7 @@ class DetailAdapter(val context: Context, val listener: (Property?) -> Unit) : R
         val lblLoadValue = view.findViewById<TextView>(R.id.lbl_load_value)
 
         fun bindItem(item: Property) {
-            lblMovementName.visibility = View.GONE
+            lblDate.text = if(item.updated != null) DateFormatHelper.convertTimeStampMilisecondToDate(item.updated!!) else DateFormatHelper.convertTimeStampMilisecondToDate(item.created!!)
             lblSetValue.text = item.set.toString()
             lblRepetitionValue.text = if(item.repetition != null) item.repetition.toString() else "-"
             lblLoadValue.text = if(item.load != null) item.load.toString() else "-"
