@@ -4,15 +4,12 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_input_data.*
 import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
 import android.widget.ArrayAdapter
-
-
-
-
 
 class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
@@ -26,6 +23,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_data)
         title = "Data"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movement = intent.getParcelableArrayListExtra("MODEL")
 
@@ -140,5 +138,15 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
     override fun goToMaintenance() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

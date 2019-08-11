@@ -3,6 +3,7 @@ package com.hadilo.hdlfit.detail
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -17,6 +18,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         title = "Detail"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movement = intent.getParcelableExtra("MODEL")
 
@@ -71,5 +73,15 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     override fun onStop() {
         super.onStop()
         presenter?.dropView()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
