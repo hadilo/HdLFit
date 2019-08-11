@@ -21,7 +21,7 @@ class DetailAdapter(val context: Context, val listener: (Property?) -> Unit) : R
     private var items = mutableListOf<Property>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_main2, parent, false))
+        ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list_detail, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bindItem(items[position])
 
@@ -29,7 +29,7 @@ class DetailAdapter(val context: Context, val listener: (Property?) -> Unit) : R
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val lblMovementName = view.findViewById<TextView>(R.id.lbl_movement_name)
+        val lblDate = view.findViewById<TextView>(R.id.lbl_date)
         val lblSetValue = view.findViewById<TextView>(R.id.lbl_set_value)
         val lblRepetitionValue = view.findViewById<TextView>(R.id.lbl_repetition_value)
         val lblLoadValue = view.findViewById<TextView>(R.id.lbl_load_value)
