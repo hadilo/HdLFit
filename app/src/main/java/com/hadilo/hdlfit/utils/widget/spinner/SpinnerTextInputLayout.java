@@ -20,7 +20,7 @@ import java.util.List;
  * Created by hadilo on 9/28/17.
  */
 
-public class SpinnerTextInputLayout<T> extends TextInputLayout {
+public class SpinnerTextInputLayout extends TextInputLayout {
 
     private static final String TAG = "SpinnerClickToTextIn";
 
@@ -28,7 +28,7 @@ public class SpinnerTextInputLayout<T> extends TextInputLayout {
     AlertDialog.Builder popup;
 
     ArrayAdapter arrayAdapter;
-    OnItemSelectedListener<T> onItemSelectedListener;
+    OnItemSelectedListener onItemSelectedListener;
 
     public SpinnerTextInputLayout(Context context) {
         super(context);
@@ -69,7 +69,7 @@ public class SpinnerTextInputLayout<T> extends TextInputLayout {
 
     public void setItems(ArrayAdapter arrayAdapter) {
 
-        this.arrayAdapter = arrayAdapter; //new ArrayAdapter<T>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        this.arrayAdapter = arrayAdapter; //new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
         this.arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(this.arrayAdapter);
 
@@ -136,11 +136,11 @@ public class SpinnerTextInputLayout<T> extends TextInputLayout {
         }
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedListener<T> onItemSelectedListener) {
+    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
         this.onItemSelectedListener = onItemSelectedListener;
     }
 
-    public interface OnItemSelectedListener<T> {
+    public interface OnItemSelectedListener {
         void onItemSelectedListener(Object item, int selectedIndex);
     }
 
