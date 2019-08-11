@@ -36,8 +36,8 @@ class Main2Adapter(val context: Context, val listener: (Movement?) -> Unit) : Re
         fun bindItem(items: Movement, listener: (Movement?) -> Unit) {
             lblMovementName.text = items.name
             lblSetValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.set.toString() else "-"
-            lblRepetitionValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.created.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
-            lblLoadValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.updated.toString() else "-"//if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
+            lblRepetitionValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.repetition.toString() else "-"
+            lblLoadValue.text = if(items.property?.isNotEmpty()!!) items.property?.get(0)?.load.toString() else "-"
 
             itemView.setOnClickListener {
                 listener(items)
