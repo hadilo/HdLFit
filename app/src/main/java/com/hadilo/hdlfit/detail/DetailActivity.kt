@@ -16,6 +16,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        title = "Detail"
 
         movement = intent.getParcelableExtra("MODEL")
 
