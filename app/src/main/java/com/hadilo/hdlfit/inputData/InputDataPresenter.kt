@@ -25,8 +25,6 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
 
     override fun addProperty(movement: Movement?, set: Int?, repetition: Int?, load: Int?) {
 
-        view?.showProgress()
-
         val property = Property(
             set = set,
             load = load,
@@ -36,21 +34,17 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
         Backendless.Data.of(Property::class.java).save(property, object : AsyncCallback<Property> {
 
             override fun handleResponse(response: Property?) {
-
-                view?.hideProgress()
                 addRelationPatientBpjs2MedRec(property, movement)
 
             }
 
             override fun handleFault(fault: BackendlessFault?) {
-                view?.hideProgress()
                 view?.onFailedAddProperty(fault?.message)
             }
         })
     }
 
     fun addRelationPatientBpjs2MedRec(property: Property?, movement: Movement?){
-        view?.showProgress()
 
         val medicalRecordCollection = ArrayList<Property?>()
         medicalRecordCollection.add(property)
@@ -58,8 +52,6 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
         Backendless.Data.of(Movement::class.java).addRelation(movement, "property:Property:n", medicalRecordCollection,
             object : AsyncCallback<Int> {
                 override fun handleResponse(response: Int?) {
-                    view?.hideProgress()
-
                     val m = Movement()
                     m.created = movement?.created
                     m.name = movement?.name
@@ -73,7 +65,6 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
                 }
 
                 override fun handleFault(fault: BackendlessFault?) {
-                    view?.hideProgress()
                     view?.onFailedAddProperty(fault?.message)
                 }
             })

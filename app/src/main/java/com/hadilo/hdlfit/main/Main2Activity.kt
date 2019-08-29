@@ -42,8 +42,9 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
         setPresenter()
         setLayout()
-        presenter?.login("devhadi@gmail.com","123456")
 
+        showProgress()
+        presenter?.login("devhadi@gmail.com","123456")
     }
 
     fun setPresenter() {
@@ -115,6 +116,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
         btnSave.setOnClickListener {
             if (validasiPopup(tilMovementName.editText?.text.toString())) {
+                showProgress()
                 presenter?.insertDataMovementName(tilMovementName.editText?.text.toString())
                 builder.dismiss()
             }
@@ -136,27 +138,29 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     }
 
     override fun onSuccessLogin(user: BackendlessUser?) {
+        hideProgress()
         presenter?.getDatas()
     }
 
     override fun onFailedLogin(message: String?) {
-        Log.d(TAG, "onFailedLogin: $message")
+        hideProgress()
     }
 
     override fun onSuccessGetDatas(movements: MutableList<Movement>?) {
+        hideProgress()
         adapter.setItems(movements!!)
     }
 
     override fun onFailedGetDatas(message: String?) {
-
+        hideProgress()
     }
 
     override fun onSuccessDataMovementName(movements: Movement?) {
-
+        hideProgress()
     }
 
     override fun onFailedDataMovementName(message: String?) {
-
+        hideProgress()
     }
 
     override fun showProgress() {

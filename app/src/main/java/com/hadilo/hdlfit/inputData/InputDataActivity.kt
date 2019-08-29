@@ -57,6 +57,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
                     it.name == cmb_movement_name.editText?.text.toString()
                 }
 
+                showProgress()
                 presenter?.addProperty(
                     m,
                     til_set.editText?.text.toString().toInt(),
@@ -126,7 +127,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     override fun onFailedAddProperty(message: String?) {
-
+        hideProgress()
     }
 
     override fun showDialog(message: String?) {
