@@ -48,15 +48,11 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
     fun setPresenter() {
         presenter = Main2Presenter()
-    }
-
-    override fun onResume() {
-        super.onResume()
         presenter?.takeView(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         presenter?.dropView()
     }
 

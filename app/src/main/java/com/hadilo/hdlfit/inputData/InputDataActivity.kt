@@ -42,8 +42,8 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
         presenter?.takeView(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         presenter?.dropView()
     }
 

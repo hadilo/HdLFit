@@ -33,6 +33,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     fun setPresenter() {
         presenter = DetailPresenter()
+        presenter?.takeView(this)
     }
 
     private fun setRecyclerView(){
@@ -70,13 +71,8 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter?.takeView(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         presenter?.dropView()
     }
 
