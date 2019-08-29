@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.hadilo.hdlfit.R
-import com.hadilo.hdlfit.model.DataModel
 import com.hadilo.hdlfit.model.Movement
 
 /**

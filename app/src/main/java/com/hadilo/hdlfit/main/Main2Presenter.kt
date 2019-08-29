@@ -1,6 +1,5 @@
 package com.hadilo.hdlfit.main
 
-import android.util.Log
 import com.backendless.Backendless
 import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
@@ -8,9 +7,7 @@ import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
 import com.backendless.persistence.local.UserTokenStorageFactory
 import com.hadilo.hdlfit.base.BasePresenter
-import com.hadilo.hdlfit.model.DataModel
 import com.hadilo.hdlfit.model.Movement
-import com.hadilo.hdlfit.model.Property
 
 /**
  * Created by Hadilo Muhammad on 2019-07-21.
@@ -29,11 +26,19 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
     }
 
     override fun getDatas() {
-        UserTokenStorageFactory.instance().storage.get()
-        val dataQueryBuilder = getQuery("objectId")
+        Backendless.Data.of(Movement::class.java).find(object : AsyncCallback<MutableList<Movement>> {
+            override fun handleResponse(response: MutableList<Movement>?) {
+                if (response?.size == 0) {
+                    view?.showDialog("Data Tidak ditemukan")
+                } else {
+                    view?.onSuccessGetDatas(response)
+                }
+            }
 
-        getAllMedicalRecord(dataQueryBuilder)
-
+            override fun handleFault(fault: BackendlessFault?) {
+                view?.showDialog(fault?.message)
+            }
+        })
     }
 
     override fun login(username: String, password: String){
@@ -55,31 +60,6 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
             return true
         }
         return false
-    }
-
-    fun getAllMedicalRecord(dataQueryBuilder: DataQueryBuilder) { //return 10 datas
-
-        Backendless.Data.of(Movement::class.java).find(object : AsyncCallback<MutableList<Movement>> {
-            override fun handleResponse(response: MutableList<Movement>?) {
-                if (response?.size == 0) {
-                    view?.showDialog("Data Tidak ditemukan")
-                } else {
-                    view?.onSuccessGetDatas(response)
-                }
-            }
-
-            override fun handleFault(fault: BackendlessFault?) {
-                view?.showDialog(fault?.message)
-            }
-        })
-    }
-
-
-
-    fun getQuery(objectId: String?): DataQueryBuilder {
-        val queryBuilder = DataQueryBuilder.create()
-        queryBuilder.setPageSize(100).setOffset(0)
-        return queryBuilder
     }
 
     override fun insertDataMovementName(name: String) {
