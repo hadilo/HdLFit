@@ -1,6 +1,7 @@
 package com.hadilo.hdlfit.detail
 
 import com.hadilo.hdlfit.base.BasePresenter
+import com.hadilo.hdlfit.model.Property
 
 /**
  * Created by Hadilo Muhammad on 2019-07-21.
@@ -16,6 +17,11 @@ class DetailPresenter : BasePresenter<DetailContract.View>, DetailContract.Prese
 
     override fun dropView() {
         this.view = null
+    }
+
+    override fun sortBescByDate(items: MutableList<Property>?) {
+        items?.sortByDescending { it.created }
+        view?.sortDescByDate(items)
     }
 
 }

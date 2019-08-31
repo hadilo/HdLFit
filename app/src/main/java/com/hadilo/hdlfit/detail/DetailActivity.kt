@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.model.Property
 import com.hadilo.hdlfit.utils.ProgressDialogHelper
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     var presenter: DetailContract.Presenter? = null
+    lateinit var adapter: DetailAdapter
 
     private var movement: Movement? = null
     var progressDialog: ProgressDialog? = null
@@ -37,7 +39,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     }
 
     private fun setRecyclerView(){
-        val adapter = DetailAdapter(baseContext) {
+        adapter = DetailAdapter(baseContext) {
 
         }
         //recyclerview dengan layout listview
@@ -51,8 +53,11 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
         rv_data.adapter = adapter
 
-        adapter.setItems(movement?.property)
+        presenter?.sortBescByDate(movement?.property)
+    }
 
+    override fun sortDescByDate(items: MutableList<Property>?) {
+        adapter.setItems(items)
     }
 
     override fun showDialog(message: String?) {
