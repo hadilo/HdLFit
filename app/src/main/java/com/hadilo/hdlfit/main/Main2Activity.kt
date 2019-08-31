@@ -139,6 +139,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
     override fun onSuccessLogin(user: BackendlessUser?) {
         hideProgress()
+        showProgress()
         presenter?.getDatas()
     }
 
