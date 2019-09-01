@@ -12,7 +12,7 @@ import android.util.AttributeSet;
  * https://stackoverflow.com/a/25478205
  */
 
-public class NDSpinner extends android.support.v7.widget.AppCompatSpinner {
+public class NDSpinner extends androidx.appcompat.widget.AppCompatSpinner {
 
     public NDSpinner(Context context)
     { super(context); }
