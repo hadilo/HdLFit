@@ -17,10 +17,10 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
     val TAG = "InputDataActivity"
 
-    var presenter: InputDataContract.Presenter? = null
+    private lateinit var presenter: InputDataContract.Presenter
+    private lateinit var progressDialog: ProgressDialog
 
     private var movement = mutableListOf<Movement>()
-    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

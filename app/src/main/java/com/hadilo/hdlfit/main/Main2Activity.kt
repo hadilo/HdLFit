@@ -24,14 +24,15 @@ import java.util.ArrayList
 
 class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
-    var presenter: Main2Contract.Presenter? = null
+    private lateinit var presenter: Main2Contract.Presenter
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var adapter: Main2Adapter
 
     val TAG = "Main2Activity"
 
     val INSERT_REQUEST = 1
 
-    lateinit var adapter: Main2Adapter
-    var progressDialog: ProgressDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

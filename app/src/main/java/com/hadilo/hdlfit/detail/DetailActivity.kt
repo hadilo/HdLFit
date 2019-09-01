@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
 
-    var presenter: DetailContract.Presenter? = null
-    lateinit var adapter: DetailAdapter
+    private lateinit var presenter: DetailContract.Presenter
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var adapter: DetailAdapter
 
     private var movement: Movement? = null
-    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
