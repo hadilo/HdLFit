@@ -24,4 +24,8 @@ class DetailPresenter : BasePresenter<DetailContract.View>, DetailContract.Prese
         view?.sortDescByDate(items)
     }
 
+    override fun countData(items: MutableList<Property>?) {
+        if (items.isNullOrEmpty()) view?.showEmptyState(true)
+        else view?.showEmptyState(false)
+    }
 }

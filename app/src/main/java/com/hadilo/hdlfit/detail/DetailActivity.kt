@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.model.Property
@@ -53,11 +54,18 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
         rv_data.adapter = adapter
 
-        presenter.sortBescByDate(movement?.property)
+        presenter.countData(movement?.property)
     }
 
     override fun sortDescByDate(items: MutableList<Property>?) {
         adapter.setItems(items)
+    }
+
+    override fun showEmptyState(isShow: Boolean) {
+        if (!isShow) { presenter.sortBescByDate(movement?.property) }
+
+        rv_data.visibility = if(isShow) View.GONE else View.VISIBLE
+        lay_empty_state.visibility = if(isShow) View.VISIBLE else View.GONE
     }
 
     override fun showDialog(message: String?) {

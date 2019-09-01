@@ -16,9 +16,12 @@ class DetailContract {
 
         fun sortDescByDate(items: MutableList<Property>?)
 
+        fun showEmptyState(isShow: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun sortBescByDate(items: MutableList<Property>?)
+
+        fun countData(items: MutableList<Property>?)
     }
 }
