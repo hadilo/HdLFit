@@ -27,6 +27,17 @@
         android:gravity="center"
         android:visibility="visible">
 
+        <!--https://medium.com/acmvit/getting-started-with-lottie-animations-android-2c225ad2c467-->
+        <!--asset download thanks from me :) => https://lottiefiles.com/629-empty-box#-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_empty_state"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="empty_box.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1.25"/>
+
         <TextView
             android:id="@+id/lbl_empty_state"
             android:layout_width="match_parent"
