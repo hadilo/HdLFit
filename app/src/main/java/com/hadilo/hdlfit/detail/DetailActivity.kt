@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     fun setPresenter() {
         presenter = DetailPresenter()
-        presenter?.takeView(this)
+        presenter.takeView(this)
     }
 
     private fun setRecyclerView(){
@@ -53,7 +53,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
         rv_data.adapter = adapter
 
-        presenter?.sortBescByDate(movement?.property)
+        presenter.sortBescByDate(movement?.property)
     }
 
     override fun sortDescByDate(items: MutableList<Property>?) {
@@ -65,11 +65,11 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     }
 
     override fun showProgress() {
-        ProgressDialogHelper.showProgress(progressDialog!!)
+        ProgressDialogHelper.showProgress(progressDialog)
     }
 
     override fun hideProgress() {
-        ProgressDialogHelper.dismissProgress(progressDialog!!)
+        ProgressDialogHelper.dismissProgress(progressDialog)
     }
 
     override fun goToMaintenance() {
@@ -78,7 +78,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.dropView()
+        presenter.dropView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

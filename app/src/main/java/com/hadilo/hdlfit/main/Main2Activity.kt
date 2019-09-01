@@ -45,17 +45,17 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         setLayout()
 
         showProgress()
-        presenter?.login("devhadi@gmail.com","123456")
+        presenter.login("devhadi@gmail.com","123456")
     }
 
     fun setPresenter() {
         presenter = Main2Presenter()
-        presenter?.takeView(this)
+        presenter.takeView(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.dropView()
+        presenter.dropView()
     }
 
     fun setLayout() {
@@ -118,7 +118,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         btnSave.setOnClickListener {
             if (validasiPopup(tilMovementName.editText?.text.toString())) {
                 showProgress()
-                presenter?.insertDataMovementName(tilMovementName.editText?.text.toString())
+                presenter.insertDataMovementName(tilMovementName.editText?.text.toString())
                 builder.dismiss()
             }
         }
@@ -141,7 +141,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     override fun onSuccessLogin(user: BackendlessUser?) {
         hideProgress()
         showProgress()
-        presenter?.getDatas()
+        presenter.getDatas()
     }
 
     override fun onFailedLogin(message: String?) {
@@ -166,11 +166,11 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
     }
 
     override fun showProgress() {
-        ProgressDialogHelper.showProgress(progressDialog!!)
+        ProgressDialogHelper.showProgress(progressDialog)
     }
 
     override fun hideProgress() {
-        ProgressDialogHelper.dismissProgress(progressDialog!!)
+        ProgressDialogHelper.dismissProgress(progressDialog)
     }
 
     override fun goToMaintenance() {

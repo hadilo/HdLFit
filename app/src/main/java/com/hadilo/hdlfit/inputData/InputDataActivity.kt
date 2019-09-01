@@ -39,12 +39,12 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 
     fun setPresenter() {
         presenter = InputDataPresenter()
-        presenter?.takeView(this)
+        presenter.takeView(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.dropView()
+        presenter.dropView()
     }
 
     fun setLayout() {
@@ -58,7 +58,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
                 }
 
                 showProgress()
-                presenter?.addProperty(
+                presenter.addProperty(
                     m,
                     til_set.editText?.text.toString().toInt(),
                     til_repetition.editText?.text.toString().toInt(),
@@ -135,11 +135,11 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     override fun showProgress() {
-        ProgressDialogHelper.showProgress(progressDialog!!)
+        ProgressDialogHelper.showProgress(progressDialog)
     }
 
     override fun hideProgress() {
-        ProgressDialogHelper.dismissProgress(progressDialog!!)
+        ProgressDialogHelper.dismissProgress(progressDialog)
     }
 
     override fun goToMaintenance() {
