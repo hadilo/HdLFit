@@ -8,5 +8,6 @@ Use
 - Model-View-Presenter Pattern
 - SpinnerTextInputLayout https://github.com/hadilo/SpinnerTextInputLayout/
 - Backendless https://backendless.com
+- Migrate to Androidx
 - Lottie https://github.com/airbnb/lottie-android
 - Empty State Asset https://lottiefiles.com/629-empty-box
