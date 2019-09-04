@@ -159,6 +159,7 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
     override fun onSuccessDataMovementName(movements: Movement?) {
         hideProgress()
+        adapter.setItem(movements!!)
     }
 
     override fun onFailedDataMovementName(message: String?) {
