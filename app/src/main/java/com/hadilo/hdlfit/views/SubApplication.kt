@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit
+package com.hadilo.hdlfit.views
 
 import android.app.Application
 import com.backendless.Backendless

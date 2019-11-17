@@ -1,8 +1,8 @@
-package com.hadilo.hdlfit.main
+package com.hadilo.hdlfit.views.main
 
 import com.backendless.BackendlessUser
-import com.hadilo.hdlfit.base.BaseView
-import com.hadilo.hdlfit.base.BasePresenter
+import com.hadilo.hdlfit.views.base.BaseView
+import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Movement
 
 /**

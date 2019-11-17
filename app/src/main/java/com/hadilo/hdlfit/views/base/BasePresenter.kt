@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.base
+package com.hadilo.hdlfit.views.base
 
 /**
  * Created by Hadilo Muhammad on 2019-07-20.

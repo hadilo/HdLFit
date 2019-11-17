@@ -1,8 +1,7 @@
-package com.hadilo.hdlfit.utils
+package com.hadilo.hdlfit.helper.utils
 
 import android.util.Log
 
-import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

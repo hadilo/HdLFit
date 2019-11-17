@@ -1,6 +1,6 @@
-package com.hadilo.hdlfit.detail
+package com.hadilo.hdlfit.views.detail
 
-import com.hadilo.hdlfit.base.BasePresenter
+import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Property
 
 /**

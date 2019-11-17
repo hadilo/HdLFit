@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.detail
+package com.hadilo.hdlfit.views.detail
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +9,7 @@ import android.widget.TextView
 
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Property
-import com.hadilo.hdlfit.utils.DateFormatHelper
+import com.hadilo.hdlfit.helper.utils.DateFormatHelper
 
 /**
  * Created by Hadilo Muhammad on 2019-07-20.

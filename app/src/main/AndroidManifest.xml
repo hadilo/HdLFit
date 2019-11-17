@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".SubApplication"
+            android:name=".views.SubApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".main.Main2Activity"
+                android:name="com.hadilo.hdlfit.views.main.Main2Activity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".inputData.InputDataActivity"
+        <activity android:name="com.hadilo.hdlfit.views.inputData.InputDataActivity"
                 android:screenOrientation="portrait"/>
-        <activity android:name=".detail.DetailActivity"
+        <activity android:name="com.hadilo.hdlfit.views.detail.DetailActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

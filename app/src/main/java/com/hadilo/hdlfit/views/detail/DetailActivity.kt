@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.detail
+package com.hadilo.hdlfit.views.detail
 
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,7 @@ import android.view.View
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.model.Property
-import com.hadilo.hdlfit.utils.ProgressDialogHelper
+import com.hadilo.hdlfit.helper.utils.ProgressDialogHelper
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {

@@ -1,9 +1,9 @@
-package com.hadilo.hdlfit.inputData
+package com.hadilo.hdlfit.views.inputData
 
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
-import com.hadilo.hdlfit.base.BasePresenter
+import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.model.Property
 

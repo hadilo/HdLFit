@@ -1,9 +1,8 @@
-package com.hadilo.hdlfit.main
+package com.hadilo.hdlfit.views.main
 
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import com.google.android.material.textfield.TextInputLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +12,10 @@ import android.view.LayoutInflater
 import android.widget.Button
 import com.backendless.BackendlessUser
 import com.hadilo.hdlfit.R
-import com.hadilo.hdlfit.detail.DetailActivity
-import com.hadilo.hdlfit.inputData.InputDataActivity
+import com.hadilo.hdlfit.views.detail.DetailActivity
+import com.hadilo.hdlfit.views.inputData.InputDataActivity
 import com.hadilo.hdlfit.model.Movement
-import com.hadilo.hdlfit.utils.ProgressDialogHelper
+import com.hadilo.hdlfit.helper.utils.ProgressDialogHelper
 
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*

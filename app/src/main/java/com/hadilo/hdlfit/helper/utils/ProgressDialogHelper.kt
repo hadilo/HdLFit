@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.utils
+package com.hadilo.hdlfit.helper.utils
 
 import android.app.ProgressDialog
 

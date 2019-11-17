@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".inputData.InputDataActivity"
+    tools:context=".views.inputData.InputDataActivity"
     android:orientation="vertical"
     android:paddingStart="16dp"
     android:paddingRight="16dp"
@@ -28,7 +28,7 @@
             <!--android:maxLines="1" />-->
     <!--</android.support.design.widget.TextInputLayout>-->
 
-    <com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
+    <com.hadilo.hdlfit.helper.utils.widget.spinner.SpinnerTextInputLayout
         android:id="@+id/cmb_movement_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,7 +42,7 @@
             android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_black_24"
             />
 
-    </com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout>
+    </com.hadilo.hdlfit.helper.utils.widget.spinner.SpinnerTextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_set"

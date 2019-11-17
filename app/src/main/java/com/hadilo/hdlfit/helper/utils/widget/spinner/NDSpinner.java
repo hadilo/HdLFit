@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.utils.widget.spinner;
+package com.hadilo.hdlfit.helper.utils.widget.spinner;
 
 /**
  * Created by hadilo on 11/9/17.

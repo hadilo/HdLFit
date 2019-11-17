@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.inputData
+package com.hadilo.hdlfit.views.inputData
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -9,9 +9,9 @@ import android.view.MenuItem
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.model.Movement
 import kotlinx.android.synthetic.main.activity_input_data.*
-import com.hadilo.hdlfit.utils.widget.spinner.SpinnerTextInputLayout
+import com.hadilo.hdlfit.helper.utils.widget.spinner.SpinnerTextInputLayout
 import android.widget.ArrayAdapter
-import com.hadilo.hdlfit.utils.ProgressDialogHelper
+import com.hadilo.hdlfit.helper.utils.ProgressDialogHelper
 
 class InputDataActivity : AppCompatActivity(), InputDataContract.View {
 

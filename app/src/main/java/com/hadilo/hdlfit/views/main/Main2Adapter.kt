@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.main
+package com.hadilo.hdlfit.views.main
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView

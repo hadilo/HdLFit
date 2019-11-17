@@ -1,4 +1,4 @@
-package com.hadilo.hdlfit.base
+package com.hadilo.hdlfit.views.base
 
 interface BaseView<T> {
 
