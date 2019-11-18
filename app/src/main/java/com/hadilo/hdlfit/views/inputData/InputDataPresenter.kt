@@ -1,8 +1,5 @@
 package com.hadilo.hdlfit.views.inputData
 
-import com.backendless.Backendless
-import com.backendless.async.callback.AsyncCallback
-import com.backendless.exceptions.BackendlessFault
 import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.model.Property
@@ -31,16 +28,16 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
             repetition = repetition
         )
 
-        Backendless.Data.of(Property::class.java).save(property, object : AsyncCallback<Property> {
-
-            override fun handleResponse(response: Property?) {
-                addRelation(property, movement)
-            }
-
-            override fun handleFault(fault: BackendlessFault?) {
-                view?.onFailedAddProperty(fault?.message)
-            }
-        })
+//        Backendless.Data.of(Property::class.java).save(property, object : AsyncCallback<Property> {
+//
+//            override fun handleResponse(response: Property?) {
+//                addRelation(property, movement)
+//            }
+//
+//            override fun handleFault(fault: BackendlessFault?) {
+//                view?.onFailedAddProperty(fault?.message)
+//            }
+//        })
     }
 
     fun addRelation(property: Property?, movement: Movement?){
@@ -48,25 +45,25 @@ class InputDataPresenter : BasePresenter<InputDataContract.View>, InputDataContr
         val array = ArrayList<Property?>()
         array.add(property)
 
-        Backendless.Data.of(Movement::class.java).addRelation(movement, "property:Property:n", array,
-            object : AsyncCallback<Int> {
-                override fun handleResponse(response: Int?) {
-                    val m = Movement()
-                    m.created = movement?.created
-                    m.name = movement?.name
-                    m.___class = movement?.___class
-                    m.property = mutableListOf(property!!)
-                    m.ownerId = movement?.ownerId
-                    m.updated = movement?.updated
-                    m.objectId = movement?.objectId
-
-                    view?.onSuccessAddProperty(m)
-                }
-
-                override fun handleFault(fault: BackendlessFault?) {
-                    view?.onFailedAddProperty(fault?.message)
-                }
-            })
+//        Backendless.Data.of(Movement::class.java).addRelation(movement, "property:Property:n", array,
+//            object : AsyncCallback<Int> {
+//                override fun handleResponse(response: Int?) {
+//                    val m = Movement()
+//                    m.created = movement?.created
+//                    m.name = movement?.name
+//                    m.___class = movement?.___class
+//                    m.property = mutableListOf(property!!)
+//                    m.ownerId = movement?.ownerId
+//                    m.updated = movement?.updated
+//                    m.objectId = movement?.objectId
+//
+//                    view?.onSuccessAddProperty(m)
+//                }
+//
+//                override fun handleFault(fault: BackendlessFault?) {
+//                    view?.onFailedAddProperty(fault?.message)
+//                }
+//            })
     }
 
 }
