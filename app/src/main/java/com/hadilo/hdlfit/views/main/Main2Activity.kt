@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
-import com.backendless.BackendlessUser
 import com.hadilo.hdlfit.R
 import com.hadilo.hdlfit.views.detail.DetailActivity
 import com.hadilo.hdlfit.views.inputData.InputDataActivity
 import com.hadilo.hdlfit.model.Movement
 import com.hadilo.hdlfit.helper.utils.ProgressDialogHelper
+import com.hadilo.hdlfit.model.pojo.login.Login
 
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.content_main2.*
@@ -137,7 +137,9 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
 
     }
 
-    override fun onSuccessLogin(user: BackendlessUser?) {
+    override fun onSuccessLogin(user: Login) {
+        Log.d(TAG, "onSuccessLogin: ${user.socialAccount}")
+
         hideProgress()
         showProgress()
         presenter.getDatas()
@@ -147,18 +149,18 @@ class Main2Activity : AppCompatActivity(), Main2Contract.View {
         hideProgress()
     }
 
-    override fun onSuccessGetDatas(movements: MutableList<Movement>?) {
+    override fun onSuccessGetDatas(movements: MutableList<Movement>) {
         hideProgress()
-        adapter.setItems(movements!!)
+        adapter.setItems(movements)
     }
 
     override fun onFailedGetDatas(message: String?) {
         hideProgress()
     }
 
-    override fun onSuccessDataMovementName(movements: Movement?) {
+    override fun onSuccessDataMovementName(movements: Movement) {
         hideProgress()
-        adapter.setItem(movements!!)
+        adapter.setItem(movements)
     }
 
     override fun onFailedDataMovementName(message: String?) {
