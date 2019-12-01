@@ -120,6 +120,7 @@ class InputDataActivity : AppCompatActivity(), InputDataContract.View {
     }
 
     override fun onSuccessAddProperty(movement: Movement?) {
+        hideProgress()
         val intent = Intent()
         intent.putExtra("MODEL", movement)
         setResult(RESULT_OK, intent)
