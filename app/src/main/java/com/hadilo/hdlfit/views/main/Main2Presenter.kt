@@ -1,12 +1,17 @@
 package com.hadilo.hdlfit.views.main
 
-import com.backendless.Backendless
-import com.backendless.BackendlessUser
-import com.backendless.async.callback.AsyncCallback
-import com.backendless.exceptions.BackendlessFault
-import com.backendless.persistence.local.UserTokenStorageFactory
+import com.hadilo.hdlfit.helper.network.Client
+import com.hadilo.hdlfit.helper.network.ErrorUtils
+import com.hadilo.hdlfit.helper.network.Service
 import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.model.Property
+import com.hadilo.hdlfit.model.pojo.error.APIError
+import com.hadilo.hdlfit.model.pojo.login.Login
+import com.hadilo.hdlfit.model.pojo.login.LoginRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * Created by Hadilo Muhammad on 2019-07-21.
@@ -15,6 +20,7 @@ import com.hadilo.hdlfit.model.Movement
 class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presenter {
 
     var view: Main2Contract.View? = null
+    lateinit var error: APIError
 
     override fun takeView(view: Main2Contract.View) {
         this.view = view
@@ -25,40 +31,51 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
     }
 
     override fun getDatas() {
-        Backendless.Data.of(Movement::class.java).find(object : AsyncCallback<MutableList<Movement>> {
-            override fun handleResponse(response: MutableList<Movement>?) {
-                if (response?.size == 0) {
-                    view?.showDialog("Data Tidak ditemukan")
-                } else {
-                    view?.onSuccessGetDatas(response)
+
+        val client = Client()
+        val apiService = client.getData().create(Service::class.java)
+
+        val call: Call<MutableList<Movement>> = apiService.getMovement()
+        call.enqueue(object : Callback<MutableList<Movement>> {
+
+            override fun onResponse(call: Call<MutableList<Movement>>, response: Response<MutableList<Movement>>) {
+                if(response.isSuccessful) {
+                    view?.onSuccessGetDatas(response.body() as MutableList<Movement>)
+                }else{
+                    error = ErrorUtils.parseError(response)
+                    view?.onFailedGetDatas(error.message as String)
                 }
             }
 
-            override fun handleFault(fault: BackendlessFault?) {
-                view?.showDialog(fault?.message)
+            override fun onFailure(call: Call<MutableList<Movement>>, t: Throwable) {
+                view?.onFailedGetDatas(t.message as String)
             }
+
         })
     }
 
     override fun login(username: String, password: String){
-            Backendless.UserService.login(username, password,  object: AsyncCallback<BackendlessUser> {
-                override fun handleResponse(user: BackendlessUser?) {
-                    view?.onSuccessLogin(user)
+
+        val client = Client()
+        val apiService = client.getData().create(Service::class.java)
+        val param = LoginRequest(username, password)
+        val call: Call<Login> = apiService.login(param)
+        call.enqueue(object : Callback<Login> {
+
+            override fun onResponse(call: Call<Login>, response: Response<Login>) {
+                if(response.isSuccessful) {
+                    view?.onSuccessLogin(response.body() as Login)
+                }else{
+                    error = ErrorUtils.parseError(response)
+                    view?.onFailedLogin(error.message as String)
                 }
+            }
 
-                override fun handleFault(fault: BackendlessFault) {
-                    view?.onFailedLogin(fault.message)
-                }
-            }, false)
+            override fun onFailure(call: Call<Login>, t: Throwable) {
+                view?.onFailedLogin(t.message as String)
+            }
 
-    }
-
-    fun isLogin(): Boolean {
-        val userToken = UserTokenStorageFactory.instance().storage.get()
-        if(userToken.isNotEmpty()){
-            return true
-        }
-        return false
+        })
     }
 
     override fun insertDataMovementName(name: String) {
@@ -66,15 +83,25 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
             name = name
         )
 
-        Backendless.Data.of(Movement::class.java).save(movement, object : AsyncCallback<Movement> {
+        val client = Client()
+        val apiService = client.getData().create(Service::class.java)
 
-            override fun handleResponse(response: Movement?) {
-                view?.onSuccessDataMovementName(response)
+        val call = apiService.postMovement(movement)
+        call.enqueue(object : Callback<Movement> {
+
+            override fun onResponse(call: Call<Movement>, response: Response<Movement>) {
+                if(response.isSuccessful) {
+                    view?.onSuccessDataMovementName(response.body()!!)
+                }else{
+                    error = ErrorUtils.parseError(response)
+                    view?.onFailedDataMovementName(error.message as String)
+                }
             }
 
-            override fun handleFault(fault: BackendlessFault?) {
-                view?.onFailedDataMovementName(fault?.message)
+            override fun onFailure(call: Call<Movement>, t: Throwable) {
+                view?.onFailedDataMovementName(t.message as String)
             }
+
         })
     }
 
