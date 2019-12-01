@@ -5,6 +5,7 @@ import com.hadilo.hdlfit.helper.network.ErrorUtils
 import com.hadilo.hdlfit.helper.network.Service
 import com.hadilo.hdlfit.views.base.BasePresenter
 import com.hadilo.hdlfit.model.Movement
+import com.hadilo.hdlfit.model.Property
 import com.hadilo.hdlfit.model.pojo.error.APIError
 import com.hadilo.hdlfit.model.pojo.login.Login
 import com.hadilo.hdlfit.model.pojo.login.LoginRequest
@@ -78,20 +79,30 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
     }
 
     override fun insertDataMovementName(name: String) {
-//        val movement = Movement(
-//            name = name
-//        )
-//
-//        Backendless.Data.of(Movement::class.java).save(movement, object : AsyncCallback<Movement> {
-//
-//            override fun handleResponse(response: Movement?) {
-//                view?.onSuccessDataMovementName(response)
-//            }
-//
-//            override fun handleFault(fault: BackendlessFault?) {
-//                view?.onFailedDataMovementName(fault?.message)
-//            }
-//        })
+        val movement = Movement(
+            name = name
+        )
+
+        val client = Client()
+        val apiService = client.getData().create(Service::class.java)
+
+        val call = apiService.postMovement(movement)
+        call.enqueue(object : Callback<Movement> {
+
+            override fun onResponse(call: Call<Movement>, response: Response<Movement>) {
+                if(response.isSuccessful) {
+                    view?.onSuccessDataMovementName(response.body()!!)
+                }else{
+                    error = ErrorUtils.parseError(response)
+                    view?.onFailedDataMovementName(error.message as String)
+                }
+            }
+
+            override fun onFailure(call: Call<Movement>, t: Throwable) {
+                view?.onFailedDataMovementName(t.message as String)
+            }
+
+        })
     }
 
 }
