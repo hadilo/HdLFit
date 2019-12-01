@@ -30,19 +30,6 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
     }
 
     override fun getDatas() {
-//        Backendless.Data.of(Movement::class.java).find(object : AsyncCallback<MutableList<Movement>> {
-//            override fun handleResponse(response: MutableList<Movement>?) {
-//                if (response?.size == 0) {
-//                    view?.showDialog("Data Tidak ditemukan")
-//                } else {
-//                    view?.onSuccessGetDatas(response)
-//                }
-//            }
-//
-//            override fun handleFault(fault: BackendlessFault?) {
-//                view?.showDialog(fault?.message)
-//            }
-//        })
 
         val client = Client()
         val apiService = client.getData().create(Service::class.java)
@@ -67,16 +54,6 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
     }
 
     override fun login(username: String, password: String){
-//            Backendless.UserService.login(username, password,  object: AsyncCallback<BackendlessUser> {
-//                override fun handleResponse(user: BackendlessUser?) {
-//                    view?.onSuccessLogin(user)
-//                }
-//
-//                override fun handleFault(fault: BackendlessFault) {
-//                    view?.onFailedLogin(fault.message)
-//                }
-//            }, false)
-
 
         val client = Client()
         val apiService = client.getData().create(Service::class.java)
@@ -99,14 +76,6 @@ class Main2Presenter : BasePresenter<Main2Contract.View>, Main2Contract.Presente
 
         })
     }
-
-//    fun isLogin(): Boolean {
-//        val userToken = UserTokenStorageFactory.instance().storage.get()
-//        if(userToken.isNotEmpty()){
-//            return true
-//        }
-//        return false
-//    }
 
     override fun insertDataMovementName(name: String) {
 //        val movement = Movement(
